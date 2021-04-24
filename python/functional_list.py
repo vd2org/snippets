@@ -2,6 +2,8 @@
 
 # Motivation: Add to the list class ability to do map and filter with more graceful way.
 
+# TODO: Fix wrong type hints.
+
 
 from typing import Callable, Iterable, TypeVar, Generic, Iterator
 
@@ -31,7 +33,7 @@ class Map(Functions, Generic[T, R]):
         return next(self._iter)
 
     def next(self) -> T:
-        return next(iter(self))
+        return next(self._iter)
 
     def flist(self) -> 'FList[R]':
         return FList(self)
@@ -48,7 +50,7 @@ class Filter(Functions, Generic[T, R]):
         return next(self._iter)
 
     def next(self) -> T:
-        return next(iter(self))
+        return next(self._iter)
 
     def flist(self) -> 'FList[T]':
         return FList(self)
