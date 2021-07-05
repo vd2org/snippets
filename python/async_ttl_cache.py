@@ -60,9 +60,8 @@ def cached(ttl: int = 10 * 60, size: int = 1024, threshold: int = 2048):
 
             key = repr(args) + repr(kwargs)
             now = int(time())
-
-            rec = cache.get(key)
-            if rec:
+            
+            if rec := cache.get(key):
                 if rec.expire > now:
                     hits += 1
                     return rec.data
