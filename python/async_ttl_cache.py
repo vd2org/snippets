@@ -1,4 +1,4 @@
-# Simple implementation of asynchronius ttl cache decorator
+# Simple implementation of asynchronous ttl cache decorator for Python 3.9+.
 
 from functools import wraps
 from time import time
