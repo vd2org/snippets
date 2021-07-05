@@ -2,7 +2,7 @@
 
 from functools import wraps
 from time import time
-from typing import Dict, Any, Callable, NamedTuple, Coroutine
+from typing import Dict, Any, Callable, NamedTuple, Awaitable
 
 
 class CacheInfo(NamedTuple):
@@ -53,7 +53,7 @@ def cached(ttl: int = 10 * 60, size: int = 1024, threshold: int = 2048):
         cache.clear()
         cache.update(reversed(temp))
 
-    def inner(f: Callable[[...], Coroutine]):
+    def inner(f: Callable[[...], Awaitable]):
         @wraps(f)
         async def decorator(*args, **kwargs) -> Any:
             nonlocal hits, misses
