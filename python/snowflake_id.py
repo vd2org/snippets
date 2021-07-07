@@ -9,15 +9,16 @@ MAX_INSTANCE = 0b1111111111
 MAX_SEQ = 0b111111111111
 
 
-def snowflake(instance: int, seq: int = 0) -> Iterator[Optional[int]]:
+def snowflake(instance: int, *, seq: int = 0, epoch: int = 0) -> Iterator[Optional[int]]:
     assert 0 <= instance <= MAX_INSTANCE, f"instance value must be positive and not exceed {MAX_INSTANCE}!"
     assert 0 <= seq <= MAX_SEQ, f"seq value must be positive and not exceed {MAX_SEQ}!"
+    assert epoch <= int(time() * 1000), f"epoch must be lower than current time {int(time() * 1000)}"
 
     instance = instance << 12
     last_time = 0
 
     while True:
-        current_time = int(time() * 1000)
+        current_time = int(time() * 1000) - epoch
 
         if last_time == current_time:
             if seq == MAX_SEQ:
