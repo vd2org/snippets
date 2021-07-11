@@ -1,8 +1,10 @@
-# Simplified version of Snowflake with microseconds(52 bits) as timestamp part.
-# The instance is reduced to 8 bits and seq to 4 bits.
+# Simplified version of Snowflake with microseconds(54 bits) as timestamp part.
+# The instance is reduced to 6 bits and seq to 4 bits.
 #
 # Actually for python there is no chance to getting more than two equal timestamps
-# in microseconds in one call, so seq increments with each iteration.
+# in microseconds in one iteration, so seq increments with each iteration.
+#
+# Also, 54 bit of the timestamp is enough to generate IDs till the middle of 2255-06-05 23:47:34.
 #
 # https://en.wikipedia.org/wiki/Snowflake_ID
 
@@ -10,7 +12,7 @@
 from time import time
 from typing import Iterator, Optional
 
-MAX_INSTANCE = 0b11111111
+MAX_INSTANCE = 0b111111
 MAX_SEQ = 0b1111
 
 
@@ -33,14 +35,14 @@ def microflake(instance: int, *, seq: int = 0, epoch: int = 0) -> Iterator[Optio
             if last_time == current_time:
                 continue
             seq = 0
-        else:
-            seq += 1
 
-        yield (last_time := current_time) << 12 | instance | seq
+        yield (last_time := current_time) << 10 | instance | seq
+
+        seq += 1
 
 
 def get_microseconds(value: int) -> int:
-    return value >> 12
+    return value >> 10
 
 
 def get_seq(value: int) -> int:
