@@ -4,7 +4,7 @@
 # Actually for python there is no chance to getting more than two equal timestamps
 # in microseconds in one iteration, so seq increments with each iteration.
 #
-# Also, 54 bit of the timestamp is enough to generate IDs till the middle of 2255-06-05 23:47:34.
+# Also, 54 bit of the timestamp is enough to generate IDs till 2255-06-05 23:47:34.
 #
 # https://en.wikipedia.org/wiki/Snowflake_ID
 
