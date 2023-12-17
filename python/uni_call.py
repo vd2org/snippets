@@ -1,4 +1,5 @@
 # Universal method caller: sync or async depending on the context
+# Only for Python 12+
 
 
 import asyncio
