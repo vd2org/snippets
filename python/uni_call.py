@@ -73,8 +73,6 @@ class Test:
         await asyncio.sleep(0.3)
         return "async result"
 
-    def xxx(self, i):
-        pass
 
 print(Test().do(1))
 
